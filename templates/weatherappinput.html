@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% extends 'Navbar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Page Title</title>
+    <!-- Add any additional meta tags, links, or stylesheets here -->
+</head>
+<body>
+    {% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col order-last">
+                <!-- First in DOM, ordered last -->
+                <div>
+                    <form method="post" action="{% url 'weatherlogic' %}">
+                        {% csrf_token %}
+                        <h4>
+                            <label for="place">Enter a city name:</label>
+                            <input type="text" id="place" name="place" required>
+                            <br><br>
+                            <button type="submit" class="btn btn-success btn-lg">Check the weather</button>
+                        </h4>
+                    </form>
+                </div>
+            </div>
+            <div align="center" class="col">
+                <!-- Second in DOM, unordered -->
+                <br><br>
+                <h1>
+                    {% if error_message %}
+                        <p>{{ error_message }}</p>
+                    {% else %}
+                        <p>City: {{ city }}</p>
+                        <p>Temperature: {{ temperature1 }}&#8451;</p>
+                        <p>Humidity: {{ humidity }}</p>
+                    {% endif %}
+                </h1>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
